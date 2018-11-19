@@ -1,0 +1,16 @@
+/**
+ * @file swan index apiDemo's css
+ * @author renzhonghua
+ */
+.page-body {
+    margin-top: 0;
+}
+.page-text {
+    font-size: .16rem;
+    color: #333;
+    padding: .4rem .3rem 0;
+}
+
+swan-button {
+    margin-top: .3rem;
+}

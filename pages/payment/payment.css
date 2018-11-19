@@ -1,0 +1,62 @@
+.page-body {
+    margin-top: 0;
+}
+
+.list-title {
+    padding: .24rem;
+    font-size: .2rem;
+    font-weight: bold;
+}
+
+.create-order {
+    border: 1px solid #ccc;
+    text-align: center;
+    margin: 0 .24rem;
+    padding: .22rem 0;
+}
+
+.pay {
+    margin-top: .22rem;
+    font-size: .2rem;
+}
+
+.pay::after,
+.refund::after,
+.non-refund::after,
+.inquiry::after {
+    border: none;
+}
+
+.generated-order {
+    border: 1px solid #ccc;
+    margin: 0 .24rem .2rem;
+    padding: .2rem;
+}
+
+.text-result {
+    color: #ff0000;
+}
+
+.refund,
+.non-refund,
+.inquiry {
+    margin: .2rem auto;
+    width: 2.6rem;
+}
+
+.non-refund {
+    background-color: #ccc;
+    color: #fff;
+}
+
+.refund-detail,
+.order-detail {
+    border: 1px dashed #ccc;
+    margin-top: .1rem;
+    padding-bottom: .2rem;
+}
+
+.detail {
+    color: #45b445;
+    padding-left: .21rem;
+}

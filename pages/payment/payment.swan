@@ -1,0 +1,54 @@
+<view class="container">
+    <view class="page-body">
+        <view class="list-title">创建订单</view>
+        <view class="create-order">
+            <view>统一下单</view>
+            <button class="pay" bind:tap="requestPolymerPayment" type="primary" hover-stop-propagation="true">支付0.01元</button>
+        </view>
+        <view class="list-title">已生成订单</view>
+        <view s-for="orderList" class="generated-order">
+            <view>
+                <text>tporderId:</text>
+                <text class="text-result">{{item.tpOrderId}}</text>
+            </view>
+            <view>
+                <text>支付状态:</text>
+                <text class="text-result">{{item.paymentStatus ? '支付成功': '支付失败'}}</text>
+            </view>
+            <view s-if="{{item.paymentStatus}}">
+                <text>支付成功通知</text>
+            </view>
+            <view class="{{item.refundDetail? 'refund-detail': ''}}">
+                <button class="{{item.paymentStatus ? 'refund' : 'non-refund'}}"
+                    disabled="{{!item.paymentStatus}}"
+                    bind:tap="refund" type="{{item.paymentStatus? 'primary':'default'}}"
+                    data-tpOrderId="{{item.tpOrderId}}"
+                    data-sign="{{item.rsaSign}}"
+                    data-appId="{{item.dealId}}"
+                    data-appKey="{{item.appKey}}"
+                    data-index="{{index}}">退款</button>
+                <view class="detail" s-if="{{item.refundDetail}}">
+                    退款状态: {{item.refundDetail}}
+                </view>
+            </view>
+            <view class="{{item.orderDetail? 'order-detail': ''}}">
+                <button class="inquiry min-btn"
+                    bind:tap="inquiry" type="primary"
+                    data-appKey="{{item.appKey}}"
+                    data-tpOrderId="{{item.tpOrderId}}"
+                    data-sign="{{item.rsaSign}}"
+                    data-appId="{{item.dealId}}"
+                    data-index="{{index}}">
+                    查询订单状态
+                </button>
+                <view class="detail" s-if="{{item.orderDetail}}">
+                    订单状态返回: {{item.orderDetail}}
+                </view>
+            </view>
+        </view>
+    </view>
+    <view class="page-title">
+        <view class="page-title-line"></view>
+        <view class="page-title-text">{{title}}</view>
+    </view>
+</view>
