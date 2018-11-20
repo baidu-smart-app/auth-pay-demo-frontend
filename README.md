@@ -8,7 +8,7 @@
 
 小程序登录授权的内部实现完整流程图见下图。
 
-![登录授权内部实现](./login_authorize.png)
+![登录授权内部实现](./images/login_authorize.png)
 
 ###   1. 手机号快捷登录（组件button）
 
