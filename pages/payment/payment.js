@@ -1,6 +1,6 @@
 /**
  * @file payment.js
- * @author renzhonghua
+ * @author rabbit77
  */
 /* globals Page, swan */
 Page({

@@ -1,6 +1,6 @@
 /**
  * @file demo page for apiDemo
- * @author renzhonghua
+ * @author rabbit77
  */
 /* globals Page, swan */
 
@@ -10,7 +10,7 @@ Page({
         hasLogin: false
     },
 
-    weakGetUserInfo() {
+    weakGetUserInfo(data) {
         swan.getUserInfo({
             success: res => {
                 // succ 回调表示拿到用户数据，但有可能是mock数据（用户未登录或者用户拒绝授权）
@@ -48,74 +48,71 @@ Page({
     },
 
 
-        // 不强制要求拿到用户隐私数据。隐私数据可以用做小程序开发者系统和百度用户系统账号打通。
-        forceGetUserInfoThanDecrypt() {
+    // 不强制要求拿到用户隐私数据。隐私数据可以用做小程序开发者系统和百度用户系统账号打通。
+    forceGetUserInfoThanDecrypt() {
 
-            swan.getUserInfo({
-                success: res => {
-                    // succ 回调表示拿到用户数据，但有可能是mock数据（用户未登录或者用户拒绝授权）
-                    // 也可能拿到了真实数据
+        swan.getUserInfo({
+            success: res => {
+                // succ 回调表示拿到用户数据，但有可能是mock数据（用户未登录或者用户拒绝授权）
+                // 也可能拿到了真实数据
 
-                    // userInfo表示用户明文（非隐私）数据，可以当做UI元素展示，但不能用作用户体系打通
+                // userInfo表示用户明文（非隐私）数据，可以当做UI元素展示，但不能用作用户体系打通
 
-                    let userInfo = res.userInfo;
-                    let iv = res.iv;
-                    if (!iv) { // 表明用户拒绝授权
-                        this.bizMockGetUserInfo(userInfo)
-                        return
-                    }
-
-                    let openID = getApp().getOpenID();
-
-                    if (!openID) {
-                        // 意味着不是强登录。
-                        // 强登录一定会去尝试设置openID, see forceGetUserInfo
-                        swan.showModal({
-                                title: '函数调用异常',
-                                content: '用户标识不存在，需要先登录'
-                            })
-                            return
-                    }
-                    swan.showToast({
-                        title: 'openID' + openID
-                    })
-                    // 开始小程序用户体系和开发者用户体系打通
-                    swan.request({
-                        url: getApp().getUrl('/auth/userinfo'),
-                        data: {
-                            open_id: openID,
-                            data: res.data,
-                            iv: res.iv,
-                        },
-                        method: 'POST',
-                        success: res => {
-                            // 一个未知bug，第一次调用居然不弹窗
-                            this.bizForceGetUserInfoSucc(res.data)
-                        },
-                        fail: err => {
-                            swan.showModal({
-                                title: '网络异常',
-                                content: JSON.stringify(err),
-                            })
-                        }
-                    });
-
-                },
-                fail: err => {
-                    swan.showModal({
-                        title: 'swan.getUserInfo 失败',
-                        content: JSON.stringify(err),
-                    })
+                let userInfo = res.userInfo;
+                let iv = res.iv;
+                if (!iv) { // 表明用户拒绝授权
+                    this.bizMockGetUserInfo(userInfo)
+                    return
                 }
-            })
-        },
+
+                let openID = getApp().getOpenID();
+
+                if (!openID) {
+                    // 意味着不是强登录。
+                    // 强登录一定会去尝试设置openID, see forceGetUserInfo
+                    swan.showModal({
+                            title: '函数调用异常',
+                            content: '用户标识不存在，需要先登录'
+                        })
+                        return
+                }
+                // 开始小程序用户体系和开发者用户体系打通
+                swan.request({
+                    url: getApp().getUrl('/auth/userinfo'),
+                    data: {
+                        open_id: openID,
+                        data: res.data,
+                        iv: res.iv,
+                    },
+                    method: 'POST',
+                    success: res => {
+                        // 一个未知bug，第一次调用居然不弹窗
+                        this.bizForceGetUserInfoSucc(res.data)
+                    },
+                    fail: err => {
+                        swan.showModal({
+                            title: '网络异常',
+                            content: JSON.stringify(err),
+                        })
+                    }
+                });
+
+            },
+            fail: err => {
+                swan.showModal({
+                    title: 'swan.getUserInfo 失败',
+                    content: JSON.stringify(err),
+                })
+            }
+        })
+    },
 
 
     loginThanDoEvent(someEvent) {
         swan.login({
             success: res => {
                 let code = res.code || '';
-                // code 一定要回传给开发者服务器，用了获取sessionKey做后续的解密操作
+                // code 一定要回传给开发者服务器，用来获取sessionKey做后续的解密操作
                 // 参考 https://smartprogram.baidu.com/docs/develop/api/open_log/#Session-Key/
                 swan.request({
                     url: getApp().getUrl('/auth/login'),
@@ -140,9 +137,6 @@ Page({
                         someEvent()
                     },
                     fail: err => {
-                        swan.showToast({
-                            title: '444'
-                        })
                         swan.showModal({
                             title: '/auth/login 网络异常',
                             content: JSON.stringify(err),
