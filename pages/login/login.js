@@ -34,22 +34,22 @@ Page({
 
                 if (!openID) {
                     // 没有openID，说明只是手百登录，但是还没有与三方服务器关联，需要先获取openID
-                    this.loginThanDoEvent(this.forceGetUserInfoThanDecrypt);
+                    this.loginThenDoEvent(this.forceGetUserInfoThenDecrypt);
                     return
                 }
 
-                this.forceGetUserInfoThanDecrypt();
+                this.forceGetUserInfoThenDecrypt();
             },
             fail: err => {
                 // sessionKey失效，需要通过swan.Login去得到sessionKey
-                this.loginThanDoEvent(this.forceGetUserInfoThanDecrypt);
+                this.loginThenDoEvent(this.forceGetUserInfoThenDecrypt);
             }
         });
     },
 
 
     // 不强制要求拿到用户隐私数据。隐私数据可以用做小程序开发者系统和百度用户系统账号打通。
-    forceGetUserInfoThanDecrypt() {
+    forceGetUserInfoThenDecrypt() {
 
         swan.getUserInfo({
             success: res => {
@@ -108,7 +108,7 @@ Page({
     },
 
 
-    loginThanDoEvent(someEvent) {
+    loginThenDoEvent(someEvent) {
         swan.login({
             success: res => {
                 let code = res.code || '';
@@ -174,7 +174,7 @@ Page({
         // 解密行为需要服务端（sessionKey）的参与
         let openID = getApp().getOpenID();
         if (!openID) {
-            this.loginThanDoEvent(this.bizDecryptPhone);
+            this.loginThenDoEvent(this.bizDecryptPhone);
         }else {
             this.bizDecryptPhone();
         }
