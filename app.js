@@ -8,7 +8,7 @@ App({
     globalData: {
         userInfo: 'user',
         // 涉及具体业务时，请替换为自己的业务域名
-        host: "http://127.0.0.1:8080"
+        host: 'http://127.0.0.1:8080'
     },
 
     getOpenID() {

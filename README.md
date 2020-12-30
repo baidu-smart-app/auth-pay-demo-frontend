@@ -27,5 +27,6 @@
 支付示例展示了创建订单、查看订单详情、申请退款的流程。对应请求的接口为`/pay/gen`、`/pay/status`、`/pay/refund`。由于主要处理在服务端，这里就不再赘述，详细处理方法见[服务端示例](https://github.com/baidu-smart-app/auth-demo-backend)。
 
 # 前端项目部署
-1、`clone auth-pay-demo-front` 支付前端代码库，并使用`百度开发者工具打开`，其中`app.js`中配置的`host`为本地运行环境，开发时需要`替换为自己的业务域名`
-2、本地运行demo时，需要启动后端环境，具体可参考[服务端示例](https://github.com/baidu-smart-app/auth-demo-backend)
+1、执行`git clone https://github.com/baidu-smart-app/auth-pay-demo-frontend.git`克隆支付前端代码库 ，并使用`百度开发者工具打开`<br>
+2、如果仅使用该`demo` 试用授权登录功能，可以参考[服务端示例](https://github.com/baidu-smart-app/auth-demo-backend)，部署本地调试环境<br>
+3、如果需要应用到具体的业务需求中，建议自行搭建后端服务，并将`app.js`中配置的`host(http://127.0.0.1:8080)` 替换为自己的业务域名
