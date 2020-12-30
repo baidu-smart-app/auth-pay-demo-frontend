@@ -1,0 +1,16 @@
+/**
+ * @file swan index apiDemo's css
+ * @author rabbit77
+ */
+.page-body {
+    margin-top: 0;
+}
+.page-text {
+    font-size: .16rem;
+    color: #333;
+    padding: .5rem .3rem 0;
+}
+
+swan-button {
+    margin-top: .2rem;
+}
