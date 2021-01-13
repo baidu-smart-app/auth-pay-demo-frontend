@@ -1,0 +1,21 @@
+<view class="container">
+    <view class="page-body">
+        <view class="page-text">新版登录更新点：
+            <view>1、使用 button 替代登录 API swan.getUserInfo </view>
+            <view>2、使用 swan.getLoginCode 替代 swan.login </view>
+        </view>
+        <view class="page-text">提供两种方式进行授权登录：授权用户信息登录/授权手机号登录</view>
+        <button
+            type="primary"
+            open-type="getPhoneNumber"
+            bindgetphonenumber="handlePhoneNumber">
+            使用手机号快捷登录
+        </button>
+        <button
+            type="primary"
+            open-type="getUserInfo"
+            bindgetuserinfo="handleGetUserInfo">
+            获取用户信息
+        </button>
+    </view>
+</view>

@@ -1,23 +1,14 @@
 /* globals App */
 
 App({
-    onLaunch(event) {
-        console.log('onLaunch');
-    },
-
-    onShow(event) {
-        console.log('onShow');
-    },
-
     getUrl(path) {
         return this.globalData.host + path
     },
 
     globalData: {
         userInfo: 'user',
-        // host: "http://172.24.200.87:8666"
-        host: "http://miniapp.test.liuximu.com"
-        // url: 'http://miniapp.test.liuximu.com/auth/login',
+        // 涉及具体业务时，请替换为自己的业务域名
+        host: 'http://127.0.0.1:8080'
     },
 
     getOpenID() {
